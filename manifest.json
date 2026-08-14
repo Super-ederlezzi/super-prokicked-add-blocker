@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "SUPERPROKİCKED",
+  "version": "2.4.0",
+  "description": "Kick.com yayın içi video reklamları, bannerları engeller ve uzaktan canlı kural güncellemesi sunar.",
+  "permissions": [
+    "storage",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "alarms"
+  ],
+  "host_permissions": [
+    "*://*.kick.com/*",
+    "*://*.kick.com/api/*",
+    "https://raw.githubusercontent.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background/service-worker.js"
+  },
+  "action": {
+    "default_popup": "src/popup/index.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.kick.com/*"],
+      "js": ["src/content/ad-blocker.js"],
+      "css": ["src/content/styles.css"],
+      "run_at": "document_start"
+    }
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules/ad-networks.json"
+      }
+    ]
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
